@@ -1,11 +1,13 @@
 [ system ]
 You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim.
 
+[ cache ]
 {% if triggeringEvent and triggeringEvent.type == "book_read" %}
 {{ render_subcomponent("system_head", "book") }}
 {% else %}
 {{ render_subcomponent("system_head", "thoughts") }}
 {% endif %}
+[ end cache ]
 [ end system ]
 
 {{ render_template("components\\event_history") }}

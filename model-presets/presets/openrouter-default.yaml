@@ -1,18 +1,18 @@
-# Balanced preset — Gemma-4 31B (temp 1.0) rotates with DeepSeek v3.2 for
-# dialogue and action selection; both Gemma-4 models plus DeepSeek v4.1
-# Flash for combat; v4.1 Flash leads meta with v4 Flash as its alternate.
+# Balanced preset — Gemma-4 31B (temp 1.0) alone for dialogue, so a prefix
+# cache can stay on one model; that model still rotates with DeepSeek v3.2
+# for action selection; both Gemma-4 models plus DeepSeek v4.1 Flash for
+# combat; v4.1 Flash leads meta with v4 Flash as its alternate.
 # Mod-registered variants inherit `default` by default (intentionally
-# not listed here so they fall through to the default rotation).
+# not listed here so they fall through to the default dialogue model).
 # Never route to a provider declared below fp8 (undeclared stays eligible).
 routing:
   quantization_floor: fp8
 
 variants:
   default:
-    model_name: google/gemma-4-31b-it, deepseek/deepseek-v3.2
+    model_name: google/gemma-4-31b-it
     model_params:
       - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 1.0 }
-      - { name: deepseek/deepseek-v3.2, provider_id: openrouter, temperature: 0.7 }
     default_params: { temperature: 0.7, max_tokens: 4096 }
 
   AgentDefault:

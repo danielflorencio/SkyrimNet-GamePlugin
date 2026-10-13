@@ -1,21 +1,21 @@
-# Premium preset — Sonnet 4.6 rotates with Gemma-4 31B for dialogue and
-# action selection; Sonnet alone for profiles/diary/memory; both Gemma-4
+# Premium preset — Sonnet 4.6 alone for dialogue, so a prefix cache can
+# stay on one model; Gemma-4 31B still rotates with Sonnet for action
+# selection; Sonnet alone for profiles/diary/memory; both Gemma-4
 # models plus DeepSeek v4.1 Flash for combat; DeepSeek 3.2 for gamemaster;
 # Haiku for the agent; v4.1 Flash leads meta with v4 Flash as its
 # alternate; v4 Flash for the translator; Qwen VL for vision. Higher
-# cost — expect a noticeable bill on heavy sessions. Sonnet and the
-# Gemmas run at temp 1.0 for more variety in dialogue.
-# Mod-registered variants inherit the default rotation.
+# cost — expect a noticeable bill on heavy sessions. Sonnet runs at
+# temp 1.0 for dialogue. The Gemmas still run at temp 1.0 in combat.
+# Mod-registered variants inherit the default dialogue model.
 # Never route to a provider declared below fp8 (undeclared stays eligible).
 routing:
   quantization_floor: fp8
 
 variants:
   default:
-    model_name: anthropic/claude-sonnet-4.6, google/gemma-4-31b-it
+    model_name: anthropic/claude-sonnet-4.6
     model_params:
       - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
-      - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 1.0 }
     default_params: { temperature: 1.0, max_tokens: 4096 }
 
   AgentDefault:

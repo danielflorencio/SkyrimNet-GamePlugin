@@ -13,7 +13,23 @@
     - Develop ideas fully - diaries are a space to work through complex feelings and experiences
     - Be unflinchingly honest about physical and intimate experiences - this is private writing where nothing is off-limits
 
-    {{ render_subcomponent("system_head", "full") }}
+    {# Identity the entry is written from. The spoken system head also carries dialogue length rules, who you are talking to, and the current scene; a diary does not speak those lines. #}
+    {{ render_character_profile("bio_summary", npc.UUID) }}
+    {{ render_character_profile("bio_background", npc.UUID) }}
+    {{ render_character_profile("bio_personality", npc.UUID) }}
+    {{ render_character_profile("bio_aspirations", npc.UUID) }}
+    {{ render_character_profile("bio_relationships", npc.UUID) }}
+    {{ render_character_profile("bio_occupation", npc.UUID) }}
+    {{ render_character_profile("speech_style", npc.UUID) }}
+    {% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "entity_led" and _dl.is_virtual %}
+    The mind writing this entry is {{ _dl.name }}, wearing {{ decnpc(npc.UUID).name }}'s body. {{ decnpc(npc.UUID).name }}'s own mind is dormant. Write the diary as {{ _dl.name }} — {{ _dl.name }}'s history, wants, and voice — not as the {{ decnpc(npc.UUID).name }} who existed before.
+    {{ render_character_profile("bio_summary", _dl.uuid) }}
+    {{ render_character_profile("bio_background", _dl.uuid) }}
+    {{ render_character_profile("bio_personality", _dl.uuid) }}
+    {{ render_character_profile("bio_aspirations", _dl.uuid) }}
+    {{ render_character_profile("bio_relationships", _dl.uuid) }}
+    {{ render_character_profile("speech_style", _dl.uuid) }}
+    {% endif %}{% endfor %}
 [ end system ]
 
 [ user ]

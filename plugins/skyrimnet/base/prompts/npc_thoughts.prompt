@@ -1,7 +1,9 @@
 [ system ]
 You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim.
 
+[ cache ]
 {{ render_subcomponent("system_head", "thoughts") }}
+[ end cache ]
 [ end system ]
 
 {{ render_template("components\\event_history") }}

@@ -1,17 +1,17 @@
-# Budget preset — the two Gemma-4 models rotate for dialogue, combat and
-# action selection (temp 1.0); Qwen 235B for jobs that need more
-# reasoning; DeepSeek v4 Flash for meta and translation; Gemma-4 26B for
-# vision. Mod-registered variants inherit the default rotation.
+# Budget preset — Gemma-4 31B (temp 1.0) for dialogue, so a prefix cache
+# can stay on one model; the two Gemma-4 models still rotate for combat
+# and action selection; Qwen 235B for jobs that need more reasoning;
+# DeepSeek v4 Flash for meta and translation; Gemma-4 26B for vision.
+# Mod-registered variants inherit the default dialogue model.
 # Never route to a provider declared below fp8 (undeclared stays eligible).
 routing:
   quantization_floor: fp8
 
 variants:
   default:
-    model_name: google/gemma-4-31b-it, google/gemma-4-26b-a4b-it
+    model_name: google/gemma-4-31b-it
     model_params:
       - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 1.0 }
-      - { name: google/gemma-4-26b-a4b-it, provider_id: openrouter, temperature: 1.0 }
     default_params: { temperature: 1.0, max_tokens: 4096 }
 
   AgentDefault:
